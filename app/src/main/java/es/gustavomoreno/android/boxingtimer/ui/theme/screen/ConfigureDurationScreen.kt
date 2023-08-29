@@ -98,7 +98,9 @@ fun RoundedButton(text: String, model: DurationsViewModel) {
         Text(
             text = text,
             fontSize = 17.sp,
-            modifier = Modifier.padding(horizontal = 30.dp, vertical = 6.dp).testTag("TextRoundButtonConfigureDurationScreen")
+            modifier = Modifier
+                .padding(horizontal = 30.dp, vertical = 6.dp)
+                .testTag("TextRoundButtonConfigureDurationScreen")
 
         )
     }
@@ -111,20 +113,20 @@ fun OutLinedTextField(
     icon: ImageVector,
     onValueChangeFunction: (Int) -> Unit
 ) {
-    var text by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    var textValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(text))
     }
     OutlinedTextField(
         shape = RoundedCornerShape(10.dp),
         leadingIcon = { Icon(icon, "Round Duration") },
-        value = text,
+        value = textValue,
         singleLine = true,
         onValueChange = {
             if (it.text.isEmpty()) {
-                text = it
+                textValue = it
                 onValueChangeFunction(0)
             } else if (it.text.length <= 2) {
-                text = it
+                textValue = it
                 onValueChangeFunction(it.text.toInt())
             }
         },
