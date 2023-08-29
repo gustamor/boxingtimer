@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     val navigationController: NavHostController = rememberNavController()
                     NavHost(
                         navController = navigationController,
-                        startDestination = Route.ConfigureDurationScreen.route
+                        startDestination = Route.SelectPredefinedDurationsScreen.route
                     ){
                         composable(Route.ConfigureDurationScreen.route) {
                             ConfigureDurationScreen()

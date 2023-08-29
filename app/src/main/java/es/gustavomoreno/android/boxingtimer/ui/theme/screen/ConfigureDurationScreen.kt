@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -39,12 +40,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Preview
 @Composable
 fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Black)
             .padding(top = 148.dp)
+            .testTag("MainColumnConfigureDurationScreen")
+
     ) {
         OutLinedTextField(
             "3",
@@ -70,7 +72,6 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
                 .padding(top = 64.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-
             RoundedButton("Start", model)
         }
     }
@@ -81,22 +82,24 @@ fun RoundedButton(text: String, model: DurationsViewModel) {
     Button(modifier = Modifier
         .width(200.dp)
         .height(50.dp)
-        .padding(horizontal = 16.dp),
+        .padding(horizontal = 16.dp)
+        .testTag("RoundButtonConfigureDurationScreen"),
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colors.background,
             backgroundColor = MaterialTheme.colors.secondary,
         ),
         onClick = {
-            model.roundDuration
-            model.rounds
+            // model.roundDuration
+            //  model.rounds
             model.restIntervalDuration
         }
     ) {
         Text(
             text = text,
             fontSize = 17.sp,
-            modifier = Modifier.padding(horizontal = 30.dp, vertical = 6.dp)
+            modifier = Modifier.padding(horizontal = 30.dp, vertical = 6.dp).testTag("TextRoundButtonConfigureDurationScreen")
+
         )
     }
 }
@@ -108,11 +111,9 @@ fun OutLinedTextField(
     icon: ImageVector,
     onValueChangeFunction: (Int) -> Unit
 ) {
-
     var text by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(text))
     }
-
     OutlinedTextField(
         shape = RoundedCornerShape(10.dp),
         leadingIcon = { Icon(icon, "Round Duration") },
@@ -147,11 +148,11 @@ fun OutLinedTextField(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Done
         ),
-
         modifier = Modifier
             .height(100.dp)
             .fillMaxWidth()
             .background(Color(0xFF000814))
             .padding(vertical = 8.dp)
+            .testTag("OutlinedTextFieldConfigureDurationScreen")
     )
 }
