@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BoxingTimerTheme {
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.surface
@@ -32,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     val navigationController: NavHostController = rememberNavController()
                     NavHost(
                         navController = navigationController,
-                        startDestination = Route.SelectPredefinedDurationsScreen.route
+                        startDestination = Route.ConfigureDurationScreen.route
                     ){
                         composable(Route.ConfigureDurationScreen.route) {
                             ConfigureDurationScreen()

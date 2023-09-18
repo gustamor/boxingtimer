@@ -58,7 +58,7 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
             "12",
             "Número de rounds",
             Icons.Filled.DateRange,
-            model::onRoundsChangeValue
+            model::onNumberOfRoundsChangeValue
         )
         OutLinedTextField(
             "1",
@@ -101,7 +101,6 @@ fun RoundedButton(text: String, model: DurationsViewModel) {
             modifier = Modifier
                 .padding(horizontal = 30.dp, vertical = 6.dp)
                 .testTag("TextRoundButtonConfigureDurationScreen")
-
         )
     }
 }
