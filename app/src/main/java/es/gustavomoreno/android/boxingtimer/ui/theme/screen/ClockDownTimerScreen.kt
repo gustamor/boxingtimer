@@ -90,7 +90,7 @@ fun ClockDownTimerScreen(model: DurationsViewModel = hiltViewModel()) {
                 )
             }
         }
-        RoundedButton("Stop", model)
+        RoundedButton("Stop", model::toggleStartStop)
     }
 
 }

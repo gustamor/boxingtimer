@@ -78,7 +78,7 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun RoundedButton(text: String, onStartedFunction: () -> Unit) {
+fun RoundedButton(text: String,  onStartedFunction: () -> Unit) {
     Button(modifier = Modifier
         .width(200.dp)
         .height(50.dp)
@@ -90,7 +90,7 @@ fun RoundedButton(text: String, onStartedFunction: () -> Unit) {
             backgroundColor = MaterialTheme.colors.secondary,
         ),
         onClick = {
-            onStartedFunction
+            onStartedFunction()
         }
     ) {
         Text(

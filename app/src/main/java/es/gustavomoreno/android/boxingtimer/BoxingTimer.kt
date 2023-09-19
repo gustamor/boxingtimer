@@ -4,7 +4,6 @@ abstract class BoxingTimer {
     abstract val id: Int
     abstract val duration: Int
     abstract val status: ClockStatus
-
 }
 
 enum class ClockStatus {
