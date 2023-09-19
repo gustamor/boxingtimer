@@ -56,7 +56,7 @@ class ConfigureDurationScreenTest {
     fun when_ConfigureDurationScreen_CheckIfExits_TextRoundButton() {
         composeTestRule.setContent {
             val model: DurationsViewModel = hiltViewModel()
-            RoundedButton(" ",model)
+            RoundedButton(" ") { model.onStarted() }
         }
         composeTestRule.onNodeWithText(" ", ignoreCase = false).assertExists()
     }
@@ -76,7 +76,7 @@ class ConfigureDurationScreenTest {
                 model::onRoundDurationChangeValue
             )
         }
-        composeTestRule.onNodeWithContentDescription("Round Duration").assertExists()
+        composeTestRule.onNodeWithContentDescription("RoundTimer Duration").assertExists()
     }
 
     /**

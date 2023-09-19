@@ -62,7 +62,7 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
         )
         OutLinedTextField(
             "1",
-            "Rest interval minutes",
+            "RestTimer interval minutes",
             Icons.Filled.DateRange,
             model::onRestIntervalDurationChangeValue
         )
@@ -72,13 +72,13 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
                 .padding(top = 64.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            RoundedButton("Start", model)
+            RoundedButton("Start", model::onStarted)
         }
     }
 }
 
 @Composable
-fun RoundedButton(text: String, model: DurationsViewModel) {
+fun RoundedButton(text: String, onStartedFunction: () -> Unit) {
     Button(modifier = Modifier
         .width(200.dp)
         .height(50.dp)
@@ -90,9 +90,7 @@ fun RoundedButton(text: String, model: DurationsViewModel) {
             backgroundColor = MaterialTheme.colors.secondary,
         ),
         onClick = {
-            // model.roundDuration
-            //  model.rounds
-            model.restIntervalDuration
+            onStartedFunction
         }
     ) {
         Text(
@@ -117,7 +115,7 @@ fun OutLinedTextField(
     }
     OutlinedTextField(
         shape = RoundedCornerShape(10.dp),
-        leadingIcon = { Icon(icon, "Round Duration") },
+        leadingIcon = { Icon(icon, "RoundTimer Duration") },
         value = textValue,
         singleLine = true,
         onValueChange = {

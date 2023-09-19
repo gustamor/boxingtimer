@@ -10,13 +10,13 @@ abstract class BoxingTimer {
 enum class ClockStatus {
     IDLE, RUNNING, FINISHED
 }
-class RoundDuration(idTimer: Int, seconds: Int = 180) : BoxingTimer() {
+class RoundTimer(idTimer: Int, seconds: Int = 180) : BoxingTimer() {
     override val id: Int = idTimer
     override val duration: Int = seconds
     override val status: ClockStatus = ClockStatus.IDLE
 }
 
-class RestDuration(idTimer: Int,seconds: Int = 60) : BoxingTimer() {
+class RestTimer(idTimer: Int, seconds: Int = 60) : BoxingTimer() {
     override val id: Int = idTimer
     override val duration: Int = seconds
     override val status: ClockStatus = ClockStatus.IDLE
