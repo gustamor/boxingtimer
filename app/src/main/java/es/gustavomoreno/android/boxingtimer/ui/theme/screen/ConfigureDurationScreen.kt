@@ -46,7 +46,6 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
             .background(color = Color.Black)
             .padding(top = 148.dp)
             .testTag("MainColumnConfigureDurationScreen")
-
     ) {
         OutLinedTextField(
             "3",

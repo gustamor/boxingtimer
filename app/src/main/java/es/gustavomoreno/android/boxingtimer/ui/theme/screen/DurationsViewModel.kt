@@ -1,9 +1,9 @@
 package es.gustavomoreno.android.boxingtimer.ui.theme.screen
 
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ class DurationsViewModel @Inject constructor(
         private set
     var restSeconds: Int by mutableIntStateOf(5)
         private set
-    var numberOfRounds: Int by mutableIntStateOf(12)
+    var numberOfRounds: Int by mutableIntStateOf(1102)
         private set
     var discountEnabled: Boolean by mutableStateOf(true)
         private set

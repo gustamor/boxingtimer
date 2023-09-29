@@ -6,3 +6,4 @@ import javax.inject.Inject
 class AlarmManagerRepository @Inject constructor(private val alarmManager: AlarmManager) {
     fun get() = alarmManager
 }
+

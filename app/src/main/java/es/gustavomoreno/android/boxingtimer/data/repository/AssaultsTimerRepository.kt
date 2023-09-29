@@ -1,5 +1,6 @@
 package es.gustavomoreno.android.boxingtimer.data.repository
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -14,17 +15,15 @@ import es.gustavomoreno.android.boxingtimer.data.AlarmTriggeredReceiver
 import es.gustavomoreno.android.boxingtimer.data.Combat
 import es.gustavomoreno.android.boxingtimer.data.model.CombatModelData
 import es.gustavomoreno.android.boxingtimer.domain.GetAlarmManagerUseCase
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
+import javax.inject.Inject
 
 class AssaultsTimerRepository @Inject constructor(var getAlarmManagerUseCase: GetAlarmManagerUseCase) :
     Combat {
-
-
     @Inject
     lateinit var context: Context
-
     override var numberOfRounds: Int = 12
         private set
     override var roundTime: Int = 3
@@ -35,6 +34,7 @@ class AssaultsTimerRepository @Inject constructor(var getAlarmManagerUseCase: Ge
         private set
     override var combatTimers: MutableList<BoxingTimer> = mutableListOf()
         private set
+
     override fun setTimer(combat: CombatModelData) {
         numberOfRounds = combat.rounds
         roundTime = combat.roundTime
@@ -42,38 +42,58 @@ class AssaultsTimerRepository @Inject constructor(var getAlarmManagerUseCase: Ge
         discountTime = combat.discountTime
     }
 
-    suspend fun createCombatTimer() {
-        combatTimers.add(TenSeconds(0))
+    private fun build(): MutableList<BoxingTimer> {
+        val _combatTimers: MutableList<BoxingTimer> = mutableListOf()
 
+        _combatTimers.add(TenSeconds(0))
         for (n in 1..numberOfRounds) {
-            combatTimers.add(RoundTimer(n, seconds = roundTime))
-            if (n < numberOfRounds) combatTimers.add(RestTimer(n, seconds = restTime))
+            _combatTimers.add(RoundTimer(n, seconds = roundTime))
+            if (n < numberOfRounds) _combatTimers.add(RestTimer(n, seconds = restTime))
         }
+        return _combatTimers
+    }
+
+    @SuppressLint("ScheduleExactAlarm")
+    suspend fun createCombatTimer() {
+
+        combatTimers = build()
 
         for (index in 0 until combatTimers.size) {
-            val round = combatTimers[index]
-
+                  val round = combatTimers[index]
             val intent = Intent(context, AlarmTriggeredReceiver::class.java)
             intent.action = "ALARM_STARTED"
-
             val pendingIntent =
-                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
+                PendingIntent.getBroadcast(
+                    context,
+                    AlarmTriggeredReceiver.REQUEST_CODE,
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
             val duration = round.duration.toLong()
-
-            Log.i("GusMor Duration", intent.toString())
-
+            val startedAt = SystemClock.elapsedRealtime()
             try {
-                getAlarmManagerUseCase().set(
+                getAlarmManagerUseCase().setExact(
                     AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + duration,
+                    startedAt + duration * 1000,
                     pendingIntent
                 )
-                delay(round.duration.toLong() * 1000)
+
+                coroutineScope {
+                    var current = duration
+                    while (current > -1) {
+                        val elapsedTime: Long =
+                            startedAt - SystemClock.elapsedRealtime() // the time that passed after the last time the user clicked the button
+                        if (elapsedTime % 1000 == 0.toLong()) {
+                            delay(1)
+                            Log.d("Sec",current.toString())
+                            current--
+
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 Log.i("GusMor", e.toString())
             }
         }
     }
 }
-
