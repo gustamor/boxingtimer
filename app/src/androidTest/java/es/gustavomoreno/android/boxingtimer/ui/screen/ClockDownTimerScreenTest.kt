@@ -2,7 +2,7 @@ package es.gustavomoreno.android.boxingtimer.ui.screen
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import es.gustavomoreno.android.boxingtimer.ui.theme.screen.ClockDownTimerScreen
+import es.gustavomoreno.android.boxingtimer.ui.theme.screen.CountDown.ClockDownTimerScreen
 import org.junit.Rule
 import org.junit.Test
 

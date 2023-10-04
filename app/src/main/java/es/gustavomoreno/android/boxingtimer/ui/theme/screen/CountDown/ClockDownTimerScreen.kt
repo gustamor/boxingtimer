@@ -1,4 +1,4 @@
-package es.gustavomoreno.android.boxingtimer.ui.theme.screen
+package es.gustavomoreno.android.boxingtimer.ui.theme.screen.CountDown
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import es.gustavomoreno.android.boxingtimer.ui.theme.screen.Durations.DurationsViewModel
+import es.gustavomoreno.android.boxingtimer.ui.theme.screen.Durations.RoundedButton
 
 @Preview
 @Composable

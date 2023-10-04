@@ -1,4 +1,4 @@
-package es.gustavomoreno.android.boxingtimer.ui.theme.screen
+package es.gustavomoreno.android.boxingtimer.ui.theme.screen.Durations
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import es.gustavomoreno.android.boxingtimer.ui.theme.screen.MediaPlayerViewModel
 
 @Preview
 @Composable
@@ -77,7 +78,8 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun RoundedButton(text: String,  onStartedFunction: () -> Unit) {
+fun RoundedButton(text: String,  onStartedFunction: () -> Unit,playerVM: MediaPlayerViewModel = hiltViewModel()) {
+
     Button(modifier = Modifier
         .width(200.dp)
         .height(50.dp)
@@ -89,6 +91,7 @@ fun RoundedButton(text: String,  onStartedFunction: () -> Unit) {
             backgroundColor = MaterialTheme.colors.secondary,
         ),
         onClick = {
+            playerVM.playShortBell()
             onStartedFunction()
         }
     ) {

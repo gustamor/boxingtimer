@@ -1,11 +1,16 @@
 package es.gustavomoreno.android.boxingtimer.domain
 
+import android.util.Log
 import es.gustavomoreno.android.boxingtimer.data.repository.AssaultsTimerRepository
 import es.gustavomoreno.android.boxingtimer.domain.model.CombatModel
 import es.gustavomoreno.android.boxingtimer.domain.model.toData
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class SetCombatTimerUseCase @Inject constructor(private val assaultsTimerRepository: AssaultsTimerRepository) {
+class SetCombatTimerUseCase @Inject constructor(
+    private val assaultsTimerRepository: AssaultsTimerRepository,
+    private val getTimerCurrentSecondUseCase: GetTimerCurrentSecondUseCase
+) {
     suspend operator fun invoke(
         rounds: Int = 12,
         roundTime: Int = 180,
@@ -19,7 +24,8 @@ class SetCombatTimerUseCase @Inject constructor(private val assaultsTimerReposit
                 roundSeconds = roundTime,
                 restSeconds = restTime,
                 discountTime = discountTime
-            ).toData()).apply {
+            ).toData()
+        ).apply {
             assaultsTimerRepository.createCombatTimer()
         }
     }

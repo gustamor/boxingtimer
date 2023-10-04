@@ -1,4 +1,4 @@
-package es.gustavomoreno.android.boxingtimer.ui.theme.screen
+package es.gustavomoreno.android.boxingtimer.ui.theme.screen.PredefinedDurations
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -44,10 +44,10 @@ fun SelectPredefinedDurationsScreen() {
                 .fillMaxWidth()
                 .height(100.dp)
         ) {
-            Row() {
+            Row {
                 val image: Painter = painterResource(id = R.drawable.clock)
                 Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
-                Column() {
+                Column {
                     Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
@@ -62,49 +62,11 @@ fun SelectPredefinedDurationsScreen() {
                 .fillMaxWidth()
                 .height(100.dp)
         ) {
-            Row() {
+            Row {
                 val image: Painter = painterResource(id = R.drawable.clock)
                 Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
 
-                Column() {
-                    Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
-                    Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
-                    Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
-                }
-            }
-
-        }
-        Card(
-            elevation = 10.dp,
-            shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(3.dp, MaterialTheme.colors.onBackground),
-            modifier = paddingModifier
-                .fillMaxWidth()
-                .height(100.dp)
-        ) {
-            Row() {
-                val image: Painter = painterResource(id = R.drawable.clock)
-                Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
-
-                Column() {
-                    Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
-                    Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
-                    Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
-                }
-            }
-        }
-        Card(
-            elevation = 10.dp,
-            shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(3.dp, MaterialTheme.colors.onBackground),
-            modifier = paddingModifier
-                .fillMaxWidth()
-                .height(100.dp)
-        ) {
-            Row() {
-                val image: Painter = painterResource(id = R.drawable.clock)
-                Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
-                Column() {
+                Column {
                     Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
@@ -120,11 +82,29 @@ fun SelectPredefinedDurationsScreen() {
                 .fillMaxWidth()
                 .height(100.dp)
         ) {
-            Row() {
+            Row {
                 val image: Painter = painterResource(id = R.drawable.clock)
                 Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
 
-                Column() {
+                Column {
+                    Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
+                    Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
+                    Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
+                }
+            }
+        }
+        Card(
+            elevation = 10.dp,
+            shape = RoundedCornerShape(20.dp),
+            border = BorderStroke(3.dp, MaterialTheme.colors.onBackground),
+            modifier = paddingModifier
+                .fillMaxWidth()
+                .height(100.dp)
+        ) {
+            Row {
+                val image: Painter = painterResource(id = R.drawable.clock)
+                Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
+                Column {
                     Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
@@ -140,11 +120,31 @@ fun SelectPredefinedDurationsScreen() {
                 .fillMaxWidth()
                 .height(100.dp)
         ) {
-            Row() {
+            Row {
                 val image: Painter = painterResource(id = R.drawable.clock)
                 Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
 
-                Column() {
+                Column {
+                    Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
+                    Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
+                    Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))
+                }
+            }
+
+        }
+        Card(
+            elevation = 10.dp,
+            shape = RoundedCornerShape(20.dp),
+            border = BorderStroke(3.dp, MaterialTheme.colors.onBackground),
+            modifier = paddingModifier
+                .fillMaxWidth()
+                .height(100.dp)
+        ) {
+            Row {
+                val image: Painter = painterResource(id = R.drawable.clock)
+                Image(painter = image, contentDescription = "clockIcon", modifier = Modifier.height(100.dp).width(100.dp))
+
+                Column {
                     Text(text = "Rounds: 12", fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "Duration of round: 3:00",fontSize = 16.sp, modifier = Modifier.padding(top = 8.dp, start= 16.dp))
                     Text(text = "RestTimer time: 1:00", fontSize = 16.sp, modifier =  Modifier.padding(top = 8.dp, start= 16.dp))

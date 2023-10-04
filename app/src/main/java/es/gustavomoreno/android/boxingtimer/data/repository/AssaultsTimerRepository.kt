@@ -7,20 +7,33 @@ import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
 import android.util.Log
-import es.gustavomoreno.android.boxingtimer.BoxingTimer
-import es.gustavomoreno.android.boxingtimer.RestTimer
-import es.gustavomoreno.android.boxingtimer.RoundTimer
-import es.gustavomoreno.android.boxingtimer.TenSeconds
-import es.gustavomoreno.android.boxingtimer.data.AlarmTriggeredReceiver
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableLongState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import es.gustavomoreno.android.boxingtimer.data.BoxingTimer
+import es.gustavomoreno.android.boxingtimer.data.BoxingTimerBuilder
+import es.gustavomoreno.android.boxingtimer.data.TimerFactory
+import es.gustavomoreno.android.boxingtimer.data.repository.AlarmTriggeredReceiver.Companion.LONG_ALARM_STARTED
 import es.gustavomoreno.android.boxingtimer.data.Combat
 import es.gustavomoreno.android.boxingtimer.data.model.CombatModelData
-import es.gustavomoreno.android.boxingtimer.domain.GetAlarmManagerUseCase
+import es.gustavomoreno.android.boxingtimer.domain.ClockCoroutineUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 import javax.inject.Inject
 
-class AssaultsTimerRepository @Inject constructor(var getAlarmManagerUseCase: GetAlarmManagerUseCase) :
+class AssaultsTimerRepository @Inject constructor(
+    private val alarmManager: AlarmManager,
+    private val clockCoroutineUseCase: ClockCoroutineUseCase
+) :
     Combat {
     @Inject
     lateinit var context: Context
@@ -28,71 +41,70 @@ class AssaultsTimerRepository @Inject constructor(var getAlarmManagerUseCase: Ge
         private set
     override var roundTime: Int = 3
         private set
-    override var restTime: Int = 1
+    override var breakTime: Int = 1
         private set
     override var discountTime: Boolean = true
         private set
     override var combatTimers: MutableList<BoxingTimer> = mutableListOf()
         private set
 
+    lateinit var seconds: MutableLongState
+        private set
+
     override fun setTimer(combat: CombatModelData) {
         numberOfRounds = combat.rounds
         roundTime = combat.roundTime
-        restTime = combat.restTime
+        breakTime = combat.breakTime
         discountTime = combat.discountTime
     }
 
+    val boxingTimer: BoxingTimerBuilder = BoxingTimerBuilder()
     private fun build(): MutableList<BoxingTimer> {
-        val _combatTimers: MutableList<BoxingTimer> = mutableListOf()
 
-        _combatTimers.add(TenSeconds(0))
-        for (n in 1..numberOfRounds) {
-            _combatTimers.add(RoundTimer(n, seconds = roundTime))
-            if (n < numberOfRounds) _combatTimers.add(RestTimer(n, seconds = restTime))
+        val timers: MutableList<BoxingTimer> = mutableListOf()
+
+        timers.add(boxingTimer.build(TimerFactory.DISCOUNT, 0, 10))
+        for (round in 1..numberOfRounds) {
+            timers.add(boxingTimer.build(TimerFactory.ROUND, round, roundTime))
+            if (round < numberOfRounds) timers.add(
+                boxingTimer.build(
+                    TimerFactory.BREAK,
+                    round,
+                    breakTime
+                )
+            )
         }
-        return _combatTimers
+        return timers
     }
 
-    @SuppressLint("ScheduleExactAlarm")
     suspend fun createCombatTimer() {
-
-        combatTimers = build()
-
+        combatTimers = this.build()
         for (index in 0 until combatTimers.size) {
-                  val round = combatTimers[index]
+            val round = combatTimers[index]
             val intent = Intent(context, AlarmTriggeredReceiver::class.java)
-            intent.action = "ALARM_STARTED"
+            intent.action = LONG_ALARM_STARTED
             val pendingIntent =
                 PendingIntent.getBroadcast(
                     context,
-                    AlarmTriggeredReceiver.REQUEST_CODE,
+                    AlarmTriggeredReceiver.REQUEST_CODE_LONG,
                     intent,
                     PendingIntent.FLAG_IMMUTABLE
                 )
             val duration = round.duration.toLong()
             val startedAt = SystemClock.elapsedRealtime()
             try {
-                getAlarmManagerUseCase().setExact(
+                alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.ELAPSED_REALTIME_WAKEUP,
                     startedAt + duration * 1000,
                     pendingIntent
                 )
-
-                coroutineScope {
-                    var current = duration
-                    while (current > -1) {
-                        val elapsedTime: Long =
-                            startedAt - SystemClock.elapsedRealtime() // the time that passed after the last time the user clicked the button
-                        if (elapsedTime % 1000 == 0.toLong()) {
-                            delay(1)
-                            Log.d("Sec",current.toString())
-                            current--
-
-                        }
-                    }
+                clockCoroutineUseCase(duration, startedAt).collect{
+                    seconds = mutableLongStateOf(it)
                 }
-            } catch (e: Exception) {
-                Log.i("GusMor", e.toString())
+            } catch (e:SecurityException ) {
+                throw SecurityException(e.message)
+            } catch (e: Exception){
+                throw Exception(e.message)
             }
         }
     }
