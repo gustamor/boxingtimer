@@ -1,4 +1,4 @@
-package es.gustavomoreno.android.boxingtimer.domain
+package es.gustavomoreno.android.boxingtimer.domain.useCase
 
 import es.gustavomoreno.android.boxingtimer.data.repository.MediaPlayerRepository
 import javax.inject.Inject

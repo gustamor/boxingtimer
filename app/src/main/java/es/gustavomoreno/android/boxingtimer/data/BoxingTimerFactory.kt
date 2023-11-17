@@ -41,6 +41,5 @@ class BoxingTimerBuilder {
     fun build(factory: String, roundNumber: Int, seconds: Int): BoxingTimer {
         val boxingTimerFactory = createFactory(factory)
         return boxingTimerFactory.createTimer(roundNumber, seconds)
-
     }
 }

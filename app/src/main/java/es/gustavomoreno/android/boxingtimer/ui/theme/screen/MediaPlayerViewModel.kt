@@ -2,7 +2,7 @@ package es.gustavomoreno.android.boxingtimer.ui.theme.screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import es.gustavomoreno.android.boxingtimer.domain.GetShortBellUseCase
+import es.gustavomoreno.android.boxingtimer.domain.useCase.GetShortBellUseCase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,6 +13,8 @@ class MediaPlayerViewModel @Inject constructor(
     fun playShortBell() {
         getShortBellUseCase().start()
     }
+
+
 
 
 }

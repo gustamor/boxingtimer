@@ -1,5 +1,6 @@
 package es.gustavomoreno.android.boxingtimer.ui.theme.screen.Durations
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,7 @@ import es.gustavomoreno.android.boxingtimer.ui.theme.screen.MediaPlayerViewModel
 
 @Preview
 @Composable
-fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
+fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel(),clockState: ClockStatusViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +74,41 @@ fun ConfigureDurationScreen(model: DurationsViewModel = hiltViewModel()) {
             horizontalArrangement = Arrangement.Center
         ) {
             RoundedButton("Start", model::onStarted)
+            Button(modifier = Modifier
+                .width(200.dp)
+                .height(50.dp)
+                .padding(horizontal = 16.dp)
+                .testTag("RoundButtonConfigureDurationScreen2"),
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colors.background,
+                    backgroundColor = MaterialTheme.colors.secondary,
+                ),
+                onClick = {
+                    clockState.pauseClock();
+                }
+            ) {
+                Text(
+                    text = "Pause",
+                    fontSize = 17.sp,
+                    modifier = Modifier
+                        .padding(horizontal = 30.dp, vertical = 6.dp)
+                        .testTag("TextRoundButtonConfigureDurationScreen2")
+                )
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 

@@ -1,10 +1,10 @@
-package es.gustavomoreno.android.boxingtimer.domain
+package es.gustavomoreno.android.boxingtimer.domain.useCase
 
-import android.util.Log
 import es.gustavomoreno.android.boxingtimer.data.repository.AssaultsTimerRepository
+import es.gustavomoreno.android.boxingtimer.domain.ClockState
 import es.gustavomoreno.android.boxingtimer.domain.model.CombatModel
 import es.gustavomoreno.android.boxingtimer.domain.model.toData
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class SetCombatTimerUseCase @Inject constructor(
@@ -29,4 +29,6 @@ class SetCombatTimerUseCase @Inject constructor(
             assaultsTimerRepository.createCombatTimer()
         }
     }
+
 }
+

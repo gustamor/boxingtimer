@@ -7,10 +7,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class AlarmManagerModule {
+    @Singleton
     @Provides
     fun provideAlarmManager(application: Application): AlarmManager = application.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 }

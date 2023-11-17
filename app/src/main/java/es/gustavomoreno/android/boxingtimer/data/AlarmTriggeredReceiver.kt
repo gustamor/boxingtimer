@@ -1,13 +1,12 @@
-package es.gustavomoreno.android.boxingtimer.data.repository
+package es.gustavomoreno.android.boxingtimer.data
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import dagger.hilt.android.AndroidEntryPoint
-import es.gustavomoreno.android.boxingtimer.domain.GetLongBellUseCase
+import es.gustavomoreno.android.boxingtimer.domain.useCase.GetLongBellUseCase
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class AlarmTriggeredReceiver : BroadcastReceiver() {
